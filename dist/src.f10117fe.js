@@ -22732,16 +22732,64 @@ var User = /** @class */function () {
   return User;
 }();
 exports.User = User;
-},{"@faker-js/faker":"../../../../node_modules/@faker-js/faker/dist/esm/index.mjs"}],"src/index.ts":[function(require,module,exports) {
+},{"@faker-js/faker":"../../../../node_modules/@faker-js/faker/dist/esm/index.mjs"}],"src/CustomMap.ts":[function(require,module,exports) {
+"use strict";
+
+/// <reference types="@types/google.maps" />
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CustomMap = void 0;
+var CustomMap = /** @class */function () {
+  function CustomMap(map) {
+    this.map = map;
+  }
+  /** Function to set coordinates for the map */
+  CustomMap.prototype.setMapCoordinates = function (lat, lng) {
+    if (this.map) {
+      var newCenter = new google.maps.LatLng(lat, lng);
+      this.map.setCenter(newCenter);
+    } else {
+      console.error("Map is not initialized.");
+    }
+  };
+  CustomMap.hello = function () {
+    console.log("hello I have loaded");
+  };
+  return CustomMap;
+}();
+exports.CustomMap = CustomMap;
+},{}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+/// <reference types="@types/google.maps" />
 var User_1 = require("./User");
-var user = new User_1.User();
-console.log("New user: ", user);
-},{"./User":"src/User.ts"}],"../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+// // import { Company } from "./Company";
+var CustomMap_1 = require("./CustomMap");
+// create new user
+var newUser = new User_1.User();
+window.addEventListener("load", function () {
+  // set global var for custom map
+  var globalMap;
+  // once the map loads, assign the window object
+  if (window.map) {
+    // If it's defined, create a new CustomMap instance
+    globalMap = new CustomMap_1.CustomMap(window.map);
+    console.log("CustomMap instance created");
+  } else {
+    console.error("Google Maps 'map' object is not defined.");
+  }
+  if (globalMap) {
+    globalMap.setMapCoordinates(newUser.location.lat, newUser.location.lng);
+    console.log("user location", newUser.location);
+  } else {
+    console.error("CustomMap instance is not defined.");
+  }
+});
+},{"./User":"src/User.ts","./CustomMap":"src/CustomMap.ts"}],"../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -22766,7 +22814,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55814" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59320" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
