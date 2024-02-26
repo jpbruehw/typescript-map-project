@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer async type="module" src="./src/index.ts"></script>
     <script>
-      // Define the initMap function
+      // define the initMap function
       async function initMap() {
         const { Map } = await google.maps.importLibrary("maps");
         window.map = new Map(document.getElementById("map"), {
@@ -17,7 +17,7 @@
     <script
       defer
       async
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF472X16jPUKFHtLQZPfIiQ0O22WtaRe8&loading=async&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=[ENTER API KEY HERE]&loading=async&callback=initMap"
     ></script>
     <script>
       var parcelRequire;

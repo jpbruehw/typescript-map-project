@@ -1,6 +1,6 @@
 /// <reference types="@types/google.maps" />
 import { User } from "./User";
-// // import { Company } from "./Company";
+import { Company } from "./Company";
 import { CustomMap } from "./CustomMap";
 
 declare global {
@@ -9,7 +9,8 @@ declare global {
   }
 }
 
-// create new user
+// create new user and company
+const newCompany = new Company();
 const newUser = new User();
 
 window.addEventListener("load", () => {
@@ -18,16 +19,17 @@ window.addEventListener("load", () => {
 
   // once the map loads, assign the window object
   if (window.map) {
-    // If it's defined, create a new CustomMap instance
+    // if it's defined, create a new CustomMap instance
     globalMap = new CustomMap(window.map);
     console.log("CustomMap instance created");
   } else {
     console.error("Google Maps 'map' object is not defined.");
   }
-
+  // once the global map has been properly assigned we can
+  // set markers for the company and user
   if (globalMap) {
-    globalMap.setMapCoordinates(newUser.location.lat, newUser.location.lng);
-    console.log("user location", newUser.location);
+    globalMap.addMarker(newCompany);
+    globalMap.addMarker(newUser);
   } else {
     console.error("CustomMap instance is not defined.");
   }
